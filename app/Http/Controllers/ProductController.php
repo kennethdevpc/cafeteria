@@ -192,10 +192,19 @@ class ProductController extends Controller
         foreach ($cartCollection as $item) {
 
             $producto = Product::find(intval($item['id']));
+            if($producto->stock==0){
+                return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
+
+            }
 
             $productoStockOperation = $producto->stock-$item['quantity'];
+            if($productoStockOperation<0){
+                return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
+
+            }
 
             $producto->stock=$productoStockOperation;
+            $producto->sold=$producto->sold+$item['quantity'];
             $producto->save();
         }
         \Cart::clear();

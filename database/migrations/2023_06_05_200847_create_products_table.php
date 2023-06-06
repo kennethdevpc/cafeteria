@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('weight');
             $table->integer('category_id');
             $table->integer('stock');
+            $table->integer('sold')->nullable();
 
             $table->double('shipping_cost')->nullable();
             $table->string('image_path')->nullable();

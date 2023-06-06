@@ -63,6 +63,12 @@
                                 <b><a  href="{{url('/product/showPropierties/'.$item->id)}}">{{ $item->name }}</a></b><br>
                                 <b>Precio: </b>${{ $item->price }}<br>
                                 <b>Sub Total: </b>${{ \Cart::get($item->id)->getPriceSum() }}<br>
+                                @if($item->attributes->stock<=0)
+                                    <b class="alert-danger">Stock: {{$item->attributes->stock}} Unidades</b> <br>
+                                @else
+                                    <b>Stock: </b>{{$item->attributes->stock}} Unidades<br>
+
+                                @endif
                             </p>
                         </div>
                         <div class="col-lg-4">
