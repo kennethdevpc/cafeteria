@@ -53,7 +53,12 @@
                             <div class="h-100">
                                 @if(($item->attributes->image))
 
-                                    <img class="img-thumbnail img-fluid mh-100 " src="{{asset('storage'.'/'.$item->attributes->image)}}" alt="image_path product" >
+{{--                                    <img class="img-thumbnail img-fluid mh-100 " src="{{asset('storage'.'/'.$item->attributes->image)}}" alt="image_path product" >--}}
+                                    <img
+                                        class="img-thumbnail img-fluid mh-100"
+                                        style="height: 120px; width: 120px;display: block;"
+                                        src="{{asset($item->attributes->image)}}"
+                                        alt="Foto del producto">
                                 @endif
                             </div>
 

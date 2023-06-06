@@ -18,10 +18,16 @@
 
                                 <div class="h-50 mt-2">
                                     @if(isset($pro->image_path))
-                                        <img
-                                             class="card-img-top mx-auto"
-                                             style="height: 120px; width: 120px;display: block;"
-                                             src="{{asset('storage'.'/'.$pro->image_path)}}" alt="Foto del producto">
+
+                                         <img
+                                            class="card-img-top mx-auto"
+                                            style="height: 120px; width: 120px;display: block;"
+                                            src="{{asset($pro->image_path)}}" alt="Foto del producto">
+                                        {{--<img
+                                            class="card-img-top mx-auto"
+                                            style="height: 120px; width: 120px;display: block;"
+                                            src="{{asset('/public/storage'.'/'.$pro->image_path)}}"
+                                            alt="Foto del producto">--}}
                                     @endif
                                 </div>
                                 <div class="card-body">
@@ -36,15 +42,18 @@
                                         <input type="hidden" value="{{ $pro->price }}" id="price" name="price">
                                         <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
                                         <input type="hidden" value="{{ $pro->slug }}" id="slug" name="slug">
-                                        <input type="hidden" value="{{ $pro->reference }}" id="reference" name="reference">
+                                        <input type="hidden" value="{{ $pro->reference }}" id="reference"
+                                               name="reference">
                                         <input type="hidden" value="{{ $pro->weight }}" id="weight" name="weight">
-                                        <input type="hidden" value="{{ $pro->category_id }}" id="category_id" name="category_id">
+                                        <input type="hidden" value="{{ $pro->category_id }}" id="category_id"
+                                               name="category_id">
                                         <input type="hidden" value="{{ $pro->stock }}" id="stock" name="stock">
                                         <input type="hidden" value="1" id="quantity" name="quantity">
 
                                         <div class="card-footer" style="background-color: white;">
-                                              <div class="row">
-                                                <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
+                                            <div class="row">
+                                                <button class="btn btn-secondary btn-sm" class="tooltip-test"
+                                                        title="add to cart">
                                                     <i class="fa fa-shopping-cart"></i> agregar al carrito
                                                 </button>
                                             </div>

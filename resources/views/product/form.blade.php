@@ -4,10 +4,16 @@
         <div class="shadow mb-5 pe-3 py-3 d-flex justify-content-between rounded-4">
 
             <h1 class="  mt-1 bg-body rounded  px-3 ">{{$modo}} Producto</h1>
-            @if(isset($product->Foto))
-                <img class="img-thumbnail img-fluid  vh-25 " src="{{asset('storage'.'/'.$product->Foto)}}"
+            @if(isset($product->image_path))
+               {{-- <img class="img-thumbnail img-fluid  vh-25 " src="{{asset('storage'.'/'.$product->Foto)}}"
                      alt="Sin Foto de product!"
-                     width="100px">
+                     width="100px">--}}
+                <img
+                    class="img-thumbnail img-fluid  vh-25 "
+                    style="height: 100px; width: 120px;display: block;"
+                    src="{{asset($product->image_path)}}"
+                    width="75px"
+                    alt="Sin Foto de product!">
 
             @endif
         </div>
@@ -26,12 +32,12 @@
 
         @endif
 
-        <div class=" form-group d-flex flex-row">
-            <label class="col-lg-2 px-3 text-lg-end " for="image_path">Foto</label>
-            <input class="form-control" type="file" name="image_path" id="image_path"
-                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">
-            <input class="form-control" type="text" name="image_path" id="image_path"
-                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">
+        <div class=" form-group d-flex flex-row col-lg-6">
+            <h4 class="col-lg-2 px-1 text-lg-end " for="image_path">Foto:</h4>
+            <input class="form-control bg-success border-dark text-dark" type="file" name="image_path" id="image_path" title="seleccionar archivo"
+                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}" >
+            {{--<input class="form-control" type="text" name="image_path" id="image_path"
+                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">--}}
         </div>
         <br>
 
