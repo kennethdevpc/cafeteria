@@ -13,6 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -53,6 +54,21 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
+        $productos = $request->all();
+        $cartCollection = json_decode($productos['cartcollection'], true);
+
+        foreach ($cartCollection as $item) {
+            $producto = Product::find(intval($item['id']));
+            $productoStockOperation = $producto->stock-$item['quantity'];
+            $producto->stock=$productoStockOperation;
+            $producto->save();
+            \Cart::clear();
+            return redirect()->route('cart.index')->with('success_msg', 'Producto comprado!');
+            //falta ejecutar pasarela de pago y validar si se ejecuto el pago correctamente
+            //si se ejecuta pago entonces si se procede a bajar el Stock
+
+        }
+
     }
 
     /**

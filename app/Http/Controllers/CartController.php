@@ -17,7 +17,6 @@ class CartController extends Controller
     public function cart()
     {
         $cartCollection = \Cart::getContent();
-        //dd($cartCollection);
         return view('cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);;
     }
 
@@ -34,9 +33,14 @@ class CartController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
+
             'attributes' => array(
                 'image' => $request->img,
-                'slug' => $request->slug
+                'slug' => $request->slug,
+                'reference' => $request->reference,
+                'weight' => $request->weight,
+                'category_id' => $request->category_id,
+                'stock' => $request->stock,
             )
         ));
         return redirect()->route('cart.index')->with('success_msg', 'Item Agregado a sú Carrito!');

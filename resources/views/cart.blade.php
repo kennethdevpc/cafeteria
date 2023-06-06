@@ -49,7 +49,8 @@
                 @foreach($cartCollection as $item)
                     <div class="row">
                         <div class="col-lg-3">
-                            <img src="/images/{{ $item->attributes->image }}" class="img-thumbnail" width="200" height="200">
+                            <img src="/images/{{ $item->attributes->image }}" class="img-thumbnail" width="200"
+                                 height="200">
                         </div>
                         <div class="col-lg-5">
                             <p>
@@ -64,16 +65,21 @@
                                     {{ csrf_field() }}
                                     <div class="form-group row">
                                         <input type="hidden" value="{{ $item->id}}" id="id" name="id">
-                                        <input type="number" class="form-control form-control-sm w-50" value="{{ $item->quantity }}"
+                                        <input type="number" class="form-control form-control-sm w-50"
+                                               value="{{ $item->quantity }}"
                                                id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
-                                        <button class="btn btn-secondary btn-sm w-50" style="margin-right: 25px;"><i class="fa fa-edit"></i>Actualizar cantidad</button>
+                                        <button class="btn btn-secondary btn-sm w-50" style="margin-right: 25px;"><i
+                                                class="fa fa-edit"></i>Actualizar cantidad
+                                        </button>
                                     </div>
                                 </form>
 
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" value="{{ $item->id }}" id="id" name="id">
-                                    <button class="btn btn-dark btn-sm" style="margin-right: 10px;"><i class="fa fa-trash"></i> Eliminar Producto</button>
+                                    <button class="btn btn-dark btn-sm" style="margin-right: 10px;"><i
+                                            class="fa fa-trash"></i> Eliminar Producto
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -94,8 +100,25 @@
                             <li class="list-group-item"><b>Total: </b>${{ \Cart::getTotal() }}</li>
                         </ul>
                     </div>
-                    <br><a href="/" class="btn btn-dark">Regresara a la tienda</a>
-                    <a href="/checkout" class="btn btn-success">Proceder a comprar</a>
+                    <br>
+
+                    {{--                    <a href="/checkout" class="btn btn-success">Proceder a comprar</a>--}}
+                    <div class="mx-3 ">
+                        <form action="{{ route('product.update') }}" method="POST" class="">
+                            {{ csrf_field() }}
+                            <div class="form-group row">
+                                <input type="hidden" value="{{ $cartCollection}}" id="cartcollection" name="cartcollection">
+                                <button class="btn btn-success btn-sm w-100" style="margin-right: 25px;"><i
+                                        class="fa fa-edit"></i>Proceder a comprar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <hr>
+                    <a class="btn btn-dark btn-sm btn-block" href="{{ route('shop') }}">
+                        Regresara a la tienda <i class="fa fa-arrow-left"></i>
+                    </a>
+{{--                    <a href="/" class="btn btn-dark">Regresara a la tienda</a>--}}
                 </div>
             @endif
         </div>

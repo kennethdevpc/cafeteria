@@ -23,6 +23,8 @@
                                 <div class="card-body">
                                     <a href=""><h6 class="card-title">{{ $pro->name }}</h6></a>
                                     <p>${{ $pro->price }}</p>
+                                    <p>Stock:{{ $pro->stock }} Unid.</p>
+                                    <p>Peso:{{ $pro->weight }}kg</p>
                                     <form action="{{ route('cart.store') }}" method="POST">
                                         {{ csrf_field() }}
                                         <input type="hidden" value="{{ $pro->id }}" id="id" name="id">
@@ -30,7 +32,12 @@
                                         <input type="hidden" value="{{ $pro->price }}" id="price" name="price">
                                         <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
                                         <input type="hidden" value="{{ $pro->slug }}" id="slug" name="slug">
+                                        <input type="hidden" value="{{ $pro->reference }}" id="reference" name="reference">
+                                        <input type="hidden" value="{{ $pro->weight }}" id="weight" name="weight">
+                                        <input type="hidden" value="{{ $pro->category_id }}" id="category_id" name="category_id">
+                                        <input type="hidden" value="{{ $pro->stock }}" id="stock" name="stock">
                                         <input type="hidden" value="1" id="quantity" name="quantity">
+
                                         <div class="card-footer" style="background-color: white;">
                                               <div class="row">
                                                 <button class="btn btn-secondary btn-sm" class="tooltip-test" title="add to cart">
