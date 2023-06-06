@@ -10,15 +10,19 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct(){
+        $this->middleware('can:admin.index')->only('index','show');
+        $this->middleware('can:products.create')->only('create','store');
+        $this->middleware('can:products.edit')->only('edit','update');
+        $this->middleware('can:products.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
         $data['products'] = Product::all(); //el nombre products lo puedo acceder desde las vistas
         return view('product.index', $data);
-
     }
 
     /**
@@ -26,8 +30,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-
         return view('product.create',);
     }
 
@@ -101,7 +103,6 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
-
         $product = Product::findOrFail($id);
         return view('product.edit', compact('product'));
     }
@@ -113,7 +114,7 @@ class ProductController extends Controller
     {
         //
         $camposx = [
-            'name' => 'required|string|max:255|unique:products',
+            'name' => 'required|string|max:255',
             'reference' => 'required|string|max:255',
             'price' => 'required|integer',
             'weight' => 'required|integer|max:255',
@@ -124,7 +125,6 @@ class ProductController extends Controller
             'required' => 'El :attribute es requerido',
             'image_path.required' => 'La foto es requerida',
             'name.required' => 'El nombre es requerido',
-            'name.unique' => 'El nombre ya ha sido tomado',
             'reference.required' => 'La Descripcion es requerida',
             'price.required' => 'El precio es requerido',
             'price.integer' => 'El precio debe ser un numero',
@@ -183,7 +183,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-
         $product = Product::findOrFail($id);
         if ($product == null) {
             return $data = ["id" => $id, "error" => "Elemento no existe en database"];
@@ -197,7 +196,6 @@ class ProductController extends Controller
                  Storage::delete('public/'.$product->image_path); // borra el archivo
              }*/
         }
-
         Product::destroy($id);
         return redirect('product')->with('mensaje', '!se elimino el product correctamente¡');
     }
@@ -218,15 +216,11 @@ class ProductController extends Controller
             $producto = Product::find(intval($item['id']));
             if ($producto->stock == 0) {
                 return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
-
             }
-
             $productoStockOperation = $producto->stock - $item['quantity'];
             if ($productoStockOperation < 0) {
                 return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
-
             }
-
             $producto->stock = $productoStockOperation;
             $producto->sold = $producto->sold + $item['quantity'];
             $producto->save();

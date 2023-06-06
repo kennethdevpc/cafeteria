@@ -22,14 +22,15 @@ Route::post('/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::post('/product/stock', [ProductController::class, 'updateStock'])->name('product.updateStock');
+Route::post('/product/stock', [ProductController::class, 'updateStock'])->name('product.updateStock')
+    ->middleware('auth');
 Route::get('/product/showPropierties/{id}', [ProductController::class, 'showPropierties'])->name('product.showPropierties');
 Route::resource('/product', ProductController::class); //para acceder a todos lo metodos
 
 //Users
 Route::resource('/users', '\App\Http\Controllers\UserController')
     ->except('create', 'store')
-    ->names('users'); //para acceder a todos lo metodos
+    ->names('users')->middleware('can:admin.index'); //para acceder a todos lo metodos
 
 Auth::routes();
 
