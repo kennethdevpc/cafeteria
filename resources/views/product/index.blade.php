@@ -59,18 +59,19 @@
                                 <i class="fa-solid fa-ellipsis"></i>
                             </a>
                             <div class="dropdown-menu  dropdown-menu-arrow animated" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item d-flex cursor-pointer" href="{{url('/product/'.$product->id)}}">
+                                    <i class="fa solid fa-info  d-flex align-items mr-10"></i>
+                                    <div class="fs-13"> Detalle</div>
+                                </a>
+                                @can('products.edit')
                                 <a class="dropdown-item d-flex cursor-pointer"
                                    href="{{url('/product/'.$product->id.'/edit')}}">
                                     <i class="fa solid fa-pencil d-flex align-items mr-10"></i>
                                     <div class="fs-13"> Editar</div>
                                 </a>
+                                @endcan
 
-                                <a class="dropdown-item d-flex cursor-pointer" href="{{url('/product/'.$product->id)}}">
-                                    <i class="fa solid fa-info  d-flex align-items mr-10"></i>
-                                    <div class="fs-13"> Detalle</div>
-                                </a>
-
-
+                                @can('products.destroy')
                                 <form class="dropdown-item d-flex cursor-pointer "
                                       action="{{url('/product/'.$product->id)}}" method="post" class="d-inline">
                                     @csrf
@@ -83,6 +84,7 @@
                                         Borrar
                                     </button>
                                 </form>
+                                @endcan
 
                             </div>
                         </div>

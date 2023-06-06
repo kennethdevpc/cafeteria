@@ -26,10 +26,10 @@ Route::post('/product/stock', [ProductController::class, 'updateStock'])->name('
 Route::get('/product/showPropierties/{id}', [ProductController::class, 'showPropierties'])->name('product.showPropierties');
 Route::resource('/product', ProductController::class); //para acceder a todos lo metodos
 
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+//Users
+Route::resource('/users', '\App\Http\Controllers\UserController')
+    ->except('create', 'store')
+    ->names('users'); //para acceder a todos lo metodos
 
 Auth::routes();
 
