@@ -81,7 +81,7 @@
 
         </div>
 
-        <div class=" form-group d-flex flex-row px-3">
+        {{--<div class=" form-group d-flex flex-row px-3">
             <div class="form-group d-flex flex-row col-4">
                 <label class="px-2" for="shipping_cost">$Envío </label>
                 <input class="form-control" type="text" name="shipping_cost" id="shipping_cost"
@@ -111,14 +111,7 @@
                 <input class="form-control" type="text" name="brand_id" id="brand_id"
                        value="{{isset($product->brand_id)?$product->brand_id:old('brand_id')}}">
             </div>
-        </div>
-
-
-        <br>
-
-
-        <br>
-
+        </div>--}}
         <div class="d-flex flex-row justify-content-between">
             <a class="btn btn-primary" href="{{url('product')}}"><i class="fas fa-arrow-left"></i> Regresar</a>
             <button type="submit" class="btn btn-success">
