@@ -96,6 +96,26 @@ Adicionalmente será necesario que creen desde Mysql una base de datos llamada `
 -   [ ] MYSQL
 
 ## Comandos de ejecucion :
+**Nota:**
+se crearon usuarios por defecto para que puede ejecutar las pruebas 
+esto se realizo en los "seeders"
+
+Usuario aministrator: puede ver todo, y ejecutar acciones en Usuarios y productos
+```
+'name' => 'Admin Konecta',
+'email' => 'admin_principal_konecta@gmail.com',
+'password' => Hash::make(12345678),
+
+```
+
+Usuario author: puede ver todo pero no ejecutar acciones en usuarios ni en productos
+```
+'name' => 'Kenneth Puliche',
+'email' => 'kennethdevpc@gmail.com',
+'password' => Hash::make(12345678),
+
+```
+El resto de usuarios que se crearon son solo usuarios "clientes", los cuales solo pueden ver la tienda y carrito de compras si estan logueados
 
 para ejecutar el archivo solo debe de instalar las dependencias, debe de dirijirse a la carpeta desde la terminal y ejecutar :
 
