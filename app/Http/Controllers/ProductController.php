@@ -37,19 +37,22 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:products',
             'reference' => 'required|string|max:255',
             'price' => 'required|integer',
             'weight' => 'required|integer|max:255',
             'category_id' => 'required|integer|max:255',
             'stock' => 'required|integer|max:255',
+            'image_path' => 'required',
         ];
         $mensaje = [
             'required' => 'El :attribute es requerido',
             'image_path.required' => 'La foto es requerida',
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'El nombre ya ha sido tomado',
             'reference.required' => 'La Descripcion es requerida',
             'price.required' => 'El precio es requerido',
+            'price.integer' => 'El precio debe ser un numero',
             'weight.required' => 'El peso es requerido',
             'category_id.required' => 'La categoria es requerida',
             'stock.required' => 'El stock es requerido',
@@ -110,7 +113,7 @@ class ProductController extends Controller
     {
         //
         $camposx = [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:products',
             'reference' => 'required|string|max:255',
             'price' => 'required|integer',
             'weight' => 'required|integer|max:255',
@@ -121,11 +124,15 @@ class ProductController extends Controller
             'required' => 'El :attribute es requerido',
             'image_path.required' => 'La foto es requerida',
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'El nombre ya ha sido tomado',
             'reference.required' => 'La Descripcion es requerida',
             'price.required' => 'El precio es requerido',
+            'price.integer' => 'El precio debe ser un numero',
             'weight.required' => 'El peso es requerido',
+            'weight.integer' => 'El peso debe ser un numero',
             'category_id.required' => 'La categoria es requerida',
             'stock.required' => 'El stock es requerido',
+            'stock.integer' => 'El stock debe ser un numero',
         ];
         $this->validate($request, $camposx, $mensaje);
         $dataProduct = request()->except('_token', '_method', 'opcion');
