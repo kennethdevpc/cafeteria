@@ -32,12 +32,12 @@
 
         @endif
 
-        <div class=" form-group d-flex flex-row">
-            <label class="col-lg-2 px-3 text-lg-end " for="image_path">Foto</label>
-            <input class="form-control" type="file" name="image_path" id="image_path"
-                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">
-            <input class="form-control" type="text" name="image_path" id="image_path"
-                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">
+        <div class=" form-group d-flex flex-row col-lg-6">
+            <h4 class="col-lg-2 px-1 text-lg-end " for="image_path">Foto:</h4>
+            <input class="form-control bg-success border-dark text-dark" type="file" name="image_path" id="image_path" title="seleccionar archivo"
+                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}" >
+            {{--<input class="form-control" type="text" name="image_path" id="image_path"
+                   value="{{isset($product->image_path)?$product->image_path:old('image_path')}}">--}}
         </div>
         <br>
 
