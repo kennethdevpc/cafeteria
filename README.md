@@ -122,7 +122,7 @@ para ejecutar el archivo solo debe de instalar las dependencias, debe de dirijir
 Para instalar el composer
 
 ```
-sudo Composer install
+sudo composer install
 ```
 
 para dependencias adicionales:
