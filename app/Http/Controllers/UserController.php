@@ -50,6 +50,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        $user->delete();
+
+        return redirect()->action([UserController::class, 'index'])
+            ->with('success-delete', 'Usuario eliminado con exito');
     }
     /**
      * Show the form for creating a new resource.
