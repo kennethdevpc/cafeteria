@@ -33,12 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @can('admin.index')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}">{{ __('Productos') }}</a>
                         </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('shop') }}">{{ __('Tienda') }}</a>
                         </li>
