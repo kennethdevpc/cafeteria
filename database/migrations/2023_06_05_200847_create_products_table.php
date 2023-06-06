@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('reference');
             $table->integer('price');
             $table->integer('weight');
-            $table->integer('category_id')->nullable();
+            $table->integer('category_id');
             $table->integer('stock');
 
             $table->double('shipping_cost')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('details')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedInteger('brand_id')->unsigned()->nullable();
+            $table->string('brand_id')->nullable();
             $table->timestamps();
         });
     }

@@ -49,12 +49,18 @@
                 @foreach($cartCollection as $item)
                     <div class="row">
                         <div class="col-lg-3">
-                            <img src="/images/{{ $item->attributes->image }}" class="img-thumbnail" width="200"
-                                 height="200">
+
+                            <div class="h-100">
+                                @if(($item->attributes->image))
+
+                                    <img class="img-thumbnail img-fluid mh-100 " src="{{asset('storage'.'/'.$item->attributes->image)}}" alt="image_path product" >
+                                @endif
+                            </div>
+
                         </div>
                         <div class="col-lg-5">
                             <p>
-                                <b><a href="/shop/{{ $item->attributes->slug }}">{{ $item->name }}</a></b><br>
+                                <b><a  href="{{url('/product/showPropierties/'.$item->id)}}">{{ $item->name }}</a></b><br>
                                 <b>Precio: </b>${{ $item->price }}<br>
                                 <b>Sub Total: </b>${{ \Cart::get($item->id)->getPriceSum() }}<br>
                             </p>

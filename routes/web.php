@@ -22,7 +22,9 @@ Route::post('/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::post('/producto/stock', [ProductController::class, 'updateStock'])->name('product.updateStock');
+Route::post('/product/stock', [ProductController::class, 'updateStock'])->name('product.updateStock');
+Route::get('/product/showPropierties/{id}', [ProductController::class, 'showPropierties'])->name('product.showPropierties');
+Route::resource('/product', ProductController::class); //para acceder a todos lo metodos
 
 
 /*Route::get('/', function () {
