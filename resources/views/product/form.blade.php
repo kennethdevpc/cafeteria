@@ -4,10 +4,16 @@
         <div class="shadow mb-5 pe-3 py-3 d-flex justify-content-between rounded-4">
 
             <h1 class="  mt-1 bg-body rounded  px-3 ">{{$modo}} Producto</h1>
-            @if(isset($product->Foto))
-                <img class="img-thumbnail img-fluid  vh-25 " src="{{asset('storage'.'/'.$product->Foto)}}"
+            @if(isset($product->image_path))
+               {{-- <img class="img-thumbnail img-fluid  vh-25 " src="{{asset('storage'.'/'.$product->Foto)}}"
                      alt="Sin Foto de product!"
-                     width="100px">
+                     width="100px">--}}
+                <img
+                    class="img-thumbnail img-fluid  vh-25 "
+                    style="height: 100px; width: 120px;display: block;"
+                    src="{{asset($product->image_path)}}"
+                    width="75px"
+                    alt="Sin Foto de product!">
 
             @endif
         </div>

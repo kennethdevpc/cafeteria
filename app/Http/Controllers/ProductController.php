@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         //
 
-        return view('product.create', );
+        return view('product.create',);
     }
 
     /**
@@ -57,26 +57,27 @@ class ProductController extends Controller
         $this->validate($request, $campos, $mensaje);
 
         $dataProduct = request()->except('_token', 'opcion');
-
         if ($request->hasFile('image_path')) {
-            $dataProduct['image_path'] = $request->file('image_path')->store('/uploads', 'public');
-        }else{ //guarda imagen desde descargas
-            $urlImagen =  $request->image_path;
+            $nombreArchivoOriginal = $request->file('image_path')->getClientOriginalName();
+            $nuevoNombre = Carbon::now()->timestamp . "_" . $nombreArchivoOriginal;
+            $carpetaDestino = './uploads/';
+            $destino = $request->file('image_path')->move($carpetaDestino, $nuevoNombre);
+            $dataProduct['image_path'] = ltrim($carpetaDestino, './') . $nuevoNombre;
+            //$dataProduct['image_path'] = $request->file('image_path')->store('/uploads', 'public');
+        } else { //guarda imagen desde descargas
+            $urlImagen = $request->image_path;
             $nombreArchivo = basename($urlImagen);
             $rutaImagen = ('./images/' . Carbon::now()->timestamp . "_" . $nombreArchivo);
             $imageContent = file_get_contents($urlImagen);
-            $path=Storage::disk('public')->put($rutaImagen, $imageContent);
-
+            $path = Storage::disk('public')->put($rutaImagen, $imageContent);
             $rutaImagenEditada = substr($rutaImagen, 2);
-            $dataProduct['image_path']=$rutaImagenEditada;
+            $dataProduct['image_path'] = $rutaImagenEditada;
         }
 
         $product = new Product();
         $product->fill($dataProduct);
         $product->save();
         return redirect('product')->with('mensaje', '¡producto agregado con exito!');
-
-
 
 
     }
@@ -131,22 +132,35 @@ class ProductController extends Controller
 
         if ($request->hasFile('image_path')) {
             $product = Product::findOrFail($id);
-            Storage::delete('public/'.$product->image_path);
-            $dataProduct['image_path'] = $request->file('image_path')->store('/uploads', 'public');
-        }else{
+
+            //++++
+            $rutaArchivo = $product->image_path;
+            if (file_exists($rutaArchivo)) {
+                unlink($rutaArchivo);// borra ruta de ese archivo
+            }
+            $nombreArchivoOriginal = $request->file('image_path')->getClientOriginalName();
+            $nuevoNombre = Carbon::now()->timestamp . "_" . $nombreArchivoOriginal;
+            $carpetaDestino = './uploads/';
+            $destino = $request->file('image_path')->move($carpetaDestino, $nuevoNombre);
+            $dataProduct['image_path'] = ltrim($carpetaDestino, './') . $nuevoNombre;
+            //++++
+            //Storage::delete('public/'.$product->image_path);
+            //$dataProduct['image_path'] = $request->file('image_path')->store('/uploads', 'public');
+
+        } else {
             //guarda imagen desde descargas
             $url = $request->image_path;
             if (filter_var($url, FILTER_VALIDATE_URL)) {
                 $product = Product::findOrFail($id);
-                Storage::delete('public/'.$product->image_path);
-                $urlImagen =  $request->image_path;
+                Storage::delete('public/' . $product->image_path);
+                $urlImagen = $request->image_path;
                 $nombreArchivo = basename($urlImagen);
                 $rutaImagen = ('./images/' . Carbon::now()->timestamp . "_" . $nombreArchivo);
                 $imageContent = file_get_contents($urlImagen);
-                $path=Storage::disk('public')->put($rutaImagen, $imageContent);
+                $path = Storage::disk('public')->put($rutaImagen, $imageContent);
 
                 $rutaImagenEditada = substr($rutaImagen, 2);
-                $dataProduct['image_path']=$rutaImagenEditada;
+                $dataProduct['image_path'] = $rutaImagenEditada;
 
             } else {
                 echo "$url no es una URL válida";
@@ -167,11 +181,14 @@ class ProductController extends Controller
         if ($product == null) {
             return $data = ["id" => $id, "error" => "Elemento no existe en database"];
         } else {
-            $rutaArchivo =('public/') . $product->image_path;
-            if (Storage::exists($rutaArchivo)) {
-                Storage::delete('public/'.$product->image_path); // borra el archivo
+            $rutaArchivo = $product->image_path;
+            if (file_exists($rutaArchivo)) {
+                unlink($rutaArchivo);// borra ruta de ese archivo
             }
-            // $product->delete();
+            /* $rutaArchivo =('public/') . $product->image_path;
+             if (Storage::exists($rutaArchivo)) {
+                 Storage::delete('public/'.$product->image_path); // borra el archivo
+             }*/
         }
 
         Product::destroy($id);
@@ -192,19 +209,19 @@ class ProductController extends Controller
         foreach ($cartCollection as $item) {
 
             $producto = Product::find(intval($item['id']));
-            if($producto->stock==0){
+            if ($producto->stock == 0) {
                 return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
 
             }
 
-            $productoStockOperation = $producto->stock-$item['quantity'];
-            if($productoStockOperation<0){
+            $productoStockOperation = $producto->stock - $item['quantity'];
+            if ($productoStockOperation < 0) {
                 return redirect()->route('cart.index')->with('success_msg', 'No es posible ejecutar la venta, Hay un producto con stock insuficiente, revice la cantidad o elimine el producto de su carrito de compras!');
 
             }
 
-            $producto->stock=$productoStockOperation;
-            $producto->sold=$producto->sold+$item['quantity'];
+            $producto->stock = $productoStockOperation;
+            $producto->sold = $producto->sold + $item['quantity'];
             $producto->save();
         }
         \Cart::clear();
@@ -212,11 +229,12 @@ class ProductController extends Controller
         //falta ejecutar pasarela de pago y validar si se ejecuto el pago correctamente
         //si se ejecuta pago entonces si se procede a bajar el Stock
     }
+
     public function showPropierties($id)
     {
         //
         $product = Product::findOrFail($id);
         $showPropierties = true;
-        return view('product.detail', compact('product','showPropierties'));
+        return view('product.detail', compact('product', 'showPropierties'));
     }
 }

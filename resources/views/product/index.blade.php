@@ -47,8 +47,11 @@
                     <td class="col-4">
                         <div class="h-75">
                             @if(isset($product->image_path))
-                                <img class="img-thumbnail img-fluid w-50 "
-                                     src="{{asset('storage'.'/'.$product->image_path)}}" alt="Foto del producto">
+                                {{--<img class="img-thumbnail img-fluid w-50 "
+                                     src="{{asset('storage'.'/'.$product->image_path)}}" alt="Foto del producto">--}}
+                                <img
+                                    class="img-thumbnail img-fluid w-50 "
+                                    src="{{asset($product->image_path)}}" alt="Foto del producto">
                             @endif
                         </div>
                     </td>
