@@ -104,7 +104,7 @@
 
                     {{--                    <a href="/checkout" class="btn btn-success">Proceder a comprar</a>--}}
                     <div class="mx-3 ">
-                        <form action="{{ route('product.update') }}" method="POST" class="">
+                        <form action="{{ route('product.updateStock') }}" method="POST" class="">
                             {{ csrf_field() }}
                             <div class="form-group row">
                                 <input type="hidden" value="{{ $cartCollection}}" id="cartcollection" name="cartcollection">
