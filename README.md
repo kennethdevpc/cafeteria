@@ -42,7 +42,13 @@ cuenta con stock mayor a cero debe mostrar un mensaje informando que no es posib
 Para finalizar se deben realizar 2 consultas directas en base de datos:
 - Realizar una consulta que permita conocer cuál es el producto que más stock tiene.
 - Realizar una consulta que permita conocer cuál es el producto más vendido.
-
+solucion :
+```
+SELECT name, stock FROM products WHERE stock > 0 ORDER BY stock DESC LIMIT 1;
+```
+```
+SELECT * FROM `products` ORDER BY `products`.`sold` DESC LIMIT 1;
+```
 ## Comenzando
 
 1.  Clonar el repositorio en sus computadoras para comenzar a trabajar
